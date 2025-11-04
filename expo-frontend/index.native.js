@@ -26,6 +26,8 @@ const adapter = new SQLiteAdapter({
 const database = new Database({
   adapter,
   modelClasses: [
+    Attendee,
+    Conference,
     // Post, // ⬅️ You'll add Models to Watermelon here
   ],
 });

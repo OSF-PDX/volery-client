@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "@nozbe/watermelondb": "^0.28.0"
+    "@nozbe/watermelondb": "^0.25.5"
   }
 }
