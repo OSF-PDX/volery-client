@@ -1,5 +1,5 @@
 import { Model } from "@nozbe/watermelondb";
-import { children } from "@nozbe/watermelondb/decorators";
+import { date, field, relation } from "@nozbe/watermelondb/decorators";
 
 export default class Conference extends Model {
   static table = "conferences";
@@ -10,8 +10,7 @@ export default class Conference extends Model {
     },
   };
 
-  @text("title") title;
+  @field("title") title;
   @date("date") date;
   @relation("attendees", "attendee_id") attendee;
-  @children("attendees") attendees;
 }

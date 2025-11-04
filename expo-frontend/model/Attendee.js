@@ -1,4 +1,5 @@
 import { Model } from "@nozbe/watermelondb";
+import { field, relation } from "@nozbe/watermelondb/decorators";
 
 export default class Attendee extends Model {
   static table = "attendees";
@@ -6,7 +7,7 @@ export default class Attendee extends Model {
     conferences: { type: "belongs_to", foreignKey: "conference_id" },
   };
 
-  @text("name") name;
-  @text("role") role;
+  @field("name") name;
+  @field("role") role;
   @relation("conferences", "conference_id") conference;
 }
