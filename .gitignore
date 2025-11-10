@@ -1,0 +1,2 @@
+# Adding this rule at the top level just in case someone creates another Node project at the top level.
+node_modules/
