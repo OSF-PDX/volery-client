@@ -1,5 +1,7 @@
 import Animated from 'react-native-reanimated';
 
+const exampleVariable = "hello what's good what's up my homie g";
+
 export function HelloWave() {
   return (
     <Animated.Text
