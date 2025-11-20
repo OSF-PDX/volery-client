@@ -1,6 +1,6 @@
 import { appSchema, tableSchema } from '@nozbe/watermelondb';
 
-const schema = appSchema({
+export const schema = appSchema({
     version: 0,
     tables: [
         tableSchema({
