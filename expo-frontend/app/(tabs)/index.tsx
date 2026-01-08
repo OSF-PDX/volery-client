@@ -1,6 +1,7 @@
 import { Image } from 'expo-image';
 import { Platform, StyleSheet } from 'react-native';
 
+import AccountsList from '@/components/AccountsList';
 import { HelloWave } from '@/components/hello-wave';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
@@ -73,6 +74,13 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">hello :3</ThemedText>
+        <ThemedText>{`i love to programming`}</ThemedText>
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+        <AccountsList />
       </ThemedView>
     </ParallaxScrollView>
   );
