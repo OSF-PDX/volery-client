@@ -25,6 +25,8 @@ const AccountsList = () => {
 
   const API_URL = Platform.OS === 'android'
     ? 'http://10.0.2.2:3000/accounts'
+    : Platform.OS === 'web'
+    ? 'http://localhost:3000/accounts'
     : 'http://localhost:3000/accounts';
 
   const isWeb = Platform.OS === 'web';
@@ -40,13 +42,17 @@ const AccountsList = () => {
   // Web version - direct API fetch without caching
   const initializeDataWeb = async () => {
     try {
+      console.log('Fetching from:', API_URL);
       const response = await fetch(API_URL);
+
+      console.log('Response status:', response.status);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
+      console.log('Received data:', data);
       
       // Transform API data to display format
       const displayAccounts: DisplayAccount[] = data.records.map((accountData: ApiAccountData) => ({
@@ -57,6 +63,7 @@ const AccountsList = () => {
 
       setAccounts(displayAccounts);
     } catch (err) {
+      console.error('Web fetch error:', err);
       setError((err as Error).message);
     } finally {
       setLoading(false);
