@@ -51,13 +51,6 @@ export default function HomeScreen() {
         <ThemedText>{`(pulled from Salesforce)`}</ThemedText>
         <ThemedText><AccountsList /></ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">hello :3</ThemedText>
-        <ThemedText>{`i love to programming`}</ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <AccountsList />
-      </ThemedView>
     </ParallaxScrollView>
   );
 }
