@@ -1,7 +1,7 @@
 import { Image } from 'expo-image';
 import { Platform, StyleSheet } from 'react-native';
 
-import AccountsList from '@/components/AccountsList';
+import SessionsList from '@/components/SessionsList';
 import { HelloWave } from '@/components/hello-wave';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
@@ -47,9 +47,10 @@ export default function HomeScreen() {
         </ThemedText>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Accounts List</ThemedText>
+        <ThemedText type="subtitle">Sessions List</ThemedText>
         <ThemedText>{`(pulled from Salesforce)`}</ThemedText>
-        <ThemedText><AccountsList /></ThemedText>
+        {/* <ThemedText><SessionsList /></ThemedText> */}
+        <SessionsList />
       </ThemedView>
     </ParallaxScrollView>
   );
