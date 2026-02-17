@@ -1,12 +1,12 @@
 import { Model } from "@nozbe/watermelondb";
 import { field, date } from "@nozbe/watermelondb/decorators";
 
-export default class Account extends Model {
-  static table = "accounts";
+export default class Session extends Model {
+  static table = "sessions";
 
-  @field("account_id") accountId;
+  @field("session_id") sessionId;
   @field("name") name;
-  @field("industry") industry;
+  @field("description") description;
   @date("created_at") createdAt;
   @date("updated_at") updatedAt;
 }
