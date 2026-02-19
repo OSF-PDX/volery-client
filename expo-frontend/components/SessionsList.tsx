@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ActivityIndicator, Platform } from 'react-nativ
 import { database } from '../model/database';
 import Session from '../model/Session';
 import { Q } from '@nozbe/watermelondb';
+import SessionItem from './SessionItem';
 
 // Type for raw API session data (Salesforce format)
 interface ApiSessionData {
@@ -27,6 +28,8 @@ interface DisplaySession {
   id: string;
   name: string;
   description: string;
+  startTime: string | null;
+  endTime: string | null;
 }
 
 const SessionsList = () => {
@@ -88,6 +91,8 @@ const SessionsList = () => {
         id: sessionData.Id,
         name: sessionData.Name,
         description: sessionData.Description__c || '', // Note: using Description__c for Salesforce
+        startTime: sessionData.Start__c || null,
+        endTime: sessionData.End__c || null,
       }));
 
       console.log('Transformed sessions:', displaySessions);
@@ -135,6 +140,8 @@ const SessionsList = () => {
       const displaySessions: DisplaySession[] = allSessions.map(session => ({
         id: session.id,
         name: session.name,
+        startTime: session.startTime ? session.startTime.toISOString() : null,
+        endTime: session.endTime ? session.endTime.toISOString() : null,
         description: session.description,
       }));
       
@@ -190,6 +197,8 @@ const SessionsList = () => {
             await existing[0].update(session => {
               session.name = sessionData.Name;
               session.description = sessionData.Description__c || '';
+              session.startTime = sessionData.Start__c ? new Date(sessionData.Start__c).getTime() : null;
+              session.endTime = sessionData.End__c ? new Date(sessionData.End__c).getTime() : null;
             });
           } else {
             // Create new session
@@ -197,6 +206,8 @@ const SessionsList = () => {
               session.sessionId = sessionData.Id;
               session.name = sessionData.Name;
               session.description = sessionData.Description__c || '';
+              session.startTime = sessionData.Start__c ? new Date(sessionData.Start__c).getTime() : null;
+              session.endTime = sessionData.End__c ? new Date(sessionData.End__c).getTime() : null;
             });
           }
         }
@@ -230,17 +241,15 @@ const SessionsList = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sessions Data</Text>
       {sessions.length === 0 ? (
         <Text>No sessions found</Text>
       ) : (
         sessions.slice(0, 3).map((session) => (
-          <View key={session.id} style={styles.sessionItem}>
-            <Text style={styles.sessionName}>{session.name}</Text>
-            <Text style={styles.sessionDescription} numberOfLines={3}>
-              {session.description}
-            </Text>
-          </View>
+          <SessionItem 
+            key={session.id}
+            name={session.name}
+            description={session.description}
+          />
         ))
       )}
       {error && sessions.length > 0 && (
@@ -255,28 +264,14 @@ const SessionsList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 0,
     justifyContent: 'center',
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 15,
-  },
-  sessionItem: {
-    marginBottom: 15,
-    paddingBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  sessionName: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 5,
-  },
-  sessionDescription: {
-    fontSize: 14,
-    color: '#666',
+    padding: 10,
   },
   error: {
     color: 'red',
