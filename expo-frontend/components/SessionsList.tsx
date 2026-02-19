@@ -249,6 +249,8 @@ const SessionsList = () => {
             key={session.id}
             name={session.name}
             description={session.description}
+            startTime={session.startTime}
+            endTime={session.endTime}
           />
         ))
       )}

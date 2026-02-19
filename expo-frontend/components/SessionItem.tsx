@@ -12,6 +12,8 @@ const SessionItem = ({ name, description, startTime, endTime }: SessionItemProps
     return (
         <View style={styles.sessionItem}>
             <Text style={styles.sessionName}>{name}</Text>
+            <Text style={styles.sessionName}>start time: {startTime}</Text>
+            <Text style={styles.sessionName}>end time: {endTime}</Text>
             <Text style={styles.sessionDescription} numberOfLines={3}>
                 {description}
             </Text>
