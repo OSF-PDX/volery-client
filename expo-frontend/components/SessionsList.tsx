@@ -304,7 +304,7 @@ const SessionsList = () => {
         <Text>No sessions found</Text>
       ) : (
         sessions
-          .slice(0, 3)
+          .slice(0, 100)
           .map((session) => (
             <SessionItem
               key={session.id}
