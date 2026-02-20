@@ -29,12 +29,18 @@ const SessionItem = ({
   return (
     <View style={styles.sessionItem}>
       <Text style={styles.sessionName}>{name}</Text>
-      <Text style={styles.sessionName}>start time: {startTime}</Text>
-      <Text style={styles.sessionName}>end time: {endTime}</Text>
       <Text style={styles.sessionDescription} numberOfLines={3}>
         {description}
       </Text>
-      <Text style={styles.sessionDescription}>{location}</Text>
+      <View style={styles.sessionTimeAndLocation}>
+        <View style={styles.sessionTimeBox}>
+          <Text style={styles.sessionName}>start time: {startTime}</Text>
+          <Text style={styles.sessionName}>end time: {endTime}</Text>
+        </View>
+        <View style={styles.sessionLocation}>
+          <Text style={styles.locationText}>{location}</Text>
+        </View>
+      </View>
     </View>
   );
 };
@@ -57,6 +63,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#666",
     marginVertical: 10,
+  },
+  sessionTimeAndLocation: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "stretch",
+    justifyContent: "space-between",
+  },
+  sessionTimeBox: {},
+  sessionLocation: {
+    justifyContent: "flex-end",
+  },
+  locationText: {
+    color: "white",
   },
 });
 
