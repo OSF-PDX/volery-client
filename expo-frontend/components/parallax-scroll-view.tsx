@@ -57,6 +57,9 @@ const styles = StyleSheet.create({
     height: HEADER_HEIGHT,
     overflow: "hidden",
     zIndex: 10,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   content: {
     flex: 1,
