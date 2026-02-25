@@ -96,6 +96,9 @@ const styles = StyleSheet.create({
   },
   sessionTime: {
     color: "white"
+  },
+  body: {
+    color: "black",
   }
 });
 
