@@ -62,9 +62,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#e0e0e0",
-    // outlineWidth: 1,
-    // outlineColor: "green",
-    // outlineStyle: "solid",
+    backgroundColor: "black"
   },
   sessionName: {
     fontSize: 25,
@@ -97,9 +95,6 @@ const styles = StyleSheet.create({
   sessionTime: {
     color: "white"
   },
-  body: {
-    color: "black",
-  }
 });
 
 export default SessionItem;
