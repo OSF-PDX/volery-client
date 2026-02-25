@@ -71,40 +71,25 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginBottom: 5,
     color: "#ffff",
-    // outlineWidth: 1,
-    // outlineColor: "red",
-    // outlineStyle: "solid"
   },
   sessionDescription: {
     fontSize: 14,
     color: "white",
     marginVertical: 10,
-    // outlineWidth: 1,
-    // outlineColor: "red",
-    // outlineStyle: "solid"
   },
   sessionTimeAndLocation: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    // outlineWidth: 1,
-    // outlineColor: "red",
-    // outlineStyle: "solid"
   },
   sessionTimeBox: {
     outlineWidth: 1,
     display: "flex",
     flexDirection: "column",
-    // justifyContent: "space-between",
-    // outlineColor: "orange",
-    // outlineStyle: "solid"
   },
   sessionLocation: {
     justifyContent: "flex-end",
     alignItems: "flex-end",
-    // outlineWidth: 1,
-    // outlineColor: "red",
-    // outlineStyle: "solid"
   },
   locationText: {
     color: "white",
