@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { parseISO, format } from "date-fns";
 
 interface SessionItemProps {
   name: string;
@@ -13,6 +14,16 @@ interface SessionItemProps {
   status: string | null;
   venueAssigned: string | null;
 }
+
+const formatTime = (timeString: string | null): string => {
+  if (!timeString) return "TBD";
+  try {
+    const parsed = parseISO(timeString);
+    return format(parsed, "MMM d, yyyy h:mm a");
+  } catch {
+    return timeString;
+  }
+};
 
 const SessionItem = ({
   name,
@@ -34,10 +45,11 @@ const SessionItem = ({
       </Text>
       <View style={styles.sessionTimeAndLocation}>
         <View style={styles.sessionTimeBox}>
-          <Text style={styles.sessionName}>start time: {startTime}</Text>
-          <Text style={styles.sessionName}>end time: {endTime}</Text>
+          <Text style={styles.sessionTime}>{formatTime(startTime)} to</Text>
+          <Text style={styles.sessionTime}>{formatTime(endTime)}</Text>
         </View>
         <View style={styles.sessionLocation}>
+          <Text style={styles.locationText}>{venueAssigned}</Text>
           <Text style={styles.locationText}>{location}</Text>
         </View>
       </View>
@@ -47,36 +59,59 @@ const SessionItem = ({
 
 const styles = StyleSheet.create({
   sessionItem: {
-    marginBottom: 15,
-    // paddingBottom: 15,
     padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#e0e0e0",
+    // outlineWidth: 1,
+    // outlineColor: "green",
+    // outlineStyle: "solid",
   },
   sessionName: {
-    fontSize: 16,
+    fontSize: 25,
     fontWeight: "600",
     marginBottom: 5,
     color: "#ffff",
+    // outlineWidth: 1,
+    // outlineColor: "red",
+    // outlineStyle: "solid"
   },
   sessionDescription: {
     fontSize: 14,
-    color: "#666",
+    color: "white",
     marginVertical: 10,
+    // outlineWidth: 1,
+    // outlineColor: "red",
+    // outlineStyle: "solid"
   },
   sessionTimeAndLocation: {
     flex: 1,
     flexDirection: "row",
-    alignItems: "stretch",
     justifyContent: "space-between",
+    // outlineWidth: 1,
+    // outlineColor: "red",
+    // outlineStyle: "solid"
   },
-  sessionTimeBox: {},
+  sessionTimeBox: {
+    outlineWidth: 1,
+    display: "flex",
+    flexDirection: "column",
+    // justifyContent: "space-between",
+    // outlineColor: "orange",
+    // outlineStyle: "solid"
+  },
   sessionLocation: {
     justifyContent: "flex-end",
+    alignItems: "flex-end",
+    // outlineWidth: 1,
+    // outlineColor: "red",
+    // outlineStyle: "solid"
   },
   locationText: {
     color: "white",
   },
+  sessionTime: {
+    color: "white"
+  }
 });
 
 export default SessionItem;
