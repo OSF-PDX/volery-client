@@ -1,54 +1,22 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Image } from "expo-image";
+import { StyleSheet } from "react-native";
 
-import SessionsList from '@/components/SessionsList';
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import SessionsList from "@/components/SessionsList";
+import ParallaxScrollView from "@/components/parallax-scroll-view";
+import { ThemedView } from "@/components/themed-view";
 
 export default function HomeScreen() {
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      headerBackgroundColor={{ light: "#A1CEDC", dark: "#ffffff" }}
       headerImage={
         <Image
-          source={require('@/assets/images/volery-logo-sketch.png')}
+          source={require("@/assets/images/26NTCLogo.webp")}
           style={styles.voleryLogo}
         />
-      }>
+      }
+    >
       <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Link to Explore modal</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
-
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Sessions List</ThemedText>
-        <ThemedText>{`(pulled from Salesforce)`}</ThemedText>
         {/* <ThemedText><SessionsList /></ThemedText> */}
         <SessionsList />
       </ThemedView>
@@ -58,8 +26,8 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
   },
   stepContainer: {
@@ -67,10 +35,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   voleryLogo: {
-    height: 178,
-    width: 290,
+    height: 100,
+    width: 225,
     bottom: 0,
-    left: 0,
-    position: 'absolute',
   },
 });
