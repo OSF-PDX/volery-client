@@ -70,6 +70,15 @@ const SessionsList = () => {
     }
   }, []);
 
+  const sortSessionsByStartTime = (sessions: DisplaySession[]): DisplaySession[] => {
+    return [...sessions].sort((a, b) => {
+      if (!a.startTime && !b.startTime) return 0;
+      if (!a.startTime) return 1;
+      if (!b.startTime) return -1;
+      return a.startTime.localeCompare(b.startTime);
+    });
+  };
+
   // Web version - direct API fetch without caching
   const initializeDataWeb = async () => {
     try {
@@ -121,7 +130,7 @@ const SessionsList = () => {
       );
 
       console.log("Transformed sessions:", displaySessions);
-      setSessions(displaySessions);
+      setSessions(sortSessionsByStartTime(displaySessions));
       setError(null);
     } catch (err) {
       console.error("Web fetch error:", err);
@@ -178,7 +187,7 @@ const SessionsList = () => {
         venueAssigned: session.venueAssigned || null,
       }));
 
-      setSessions(displaySessions);
+      setSessions(sortSessionsByStartTime(displaySessions));
     } catch (err) {
       console.error("Error loading from DB:", err);
       throw err;
