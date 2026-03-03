@@ -1,7 +1,6 @@
-import type { PropsWithChildren, ReactElement } from "react";
+import type { PropsWithChildren } from "react";
 import { StyleSheet, View } from "react-native";
 import Animated, { useAnimatedRef } from "react-native-reanimated";
-
 import { ThemedView } from "@/components/themed-view";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import AppHeader from "@/components/AppHeader";
@@ -10,18 +9,32 @@ const HEADER_HEIGHT = 100;
 
 type Props = PropsWithChildren<{
   headerBackgroundColor: { dark: string; light: string };
+  selectedDate: string | null;
+  availableDates: string[];
+  onPreviousDay: () => void;
+  onNextDay: () => void;
 }>;
 
 export default function ParallaxScrollView({
   children,
   headerBackgroundColor,
+  selectedDate,
+  availableDates,
+  onPreviousDay,
+  onNextDay,
 }: Props) {
   const backgroundColor = useThemeColor({}, "background");
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
 
   return (
     <View style={styles.container}>
-      <AppHeader headerBackgroundColor={headerBackgroundColor} />
+      <AppHeader
+        headerBackgroundColor={headerBackgroundColor} 
+        selectedDate={selectedDate}
+        availableDates={availableDates}
+        onPreviousDay={onPreviousDay}
+        onNextDay={onNextDay}
+      />
 
       <Animated.ScrollView
         ref={scrollRef}

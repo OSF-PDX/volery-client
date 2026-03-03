@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native";
 import { database } from "../model/database";
+import { format, parseISO } from "date-fns";
 import Session from "../model/Session";
 import SessionItem from "./SessionItem";
 
@@ -48,7 +49,12 @@ interface DisplaySession {
   venueAssigned: string | null;
 }
 
-const SessionsList = () => {
+interface Props {
+  selectedDate: string | null;
+  onDatesLoaded: (dates: string[]) => void;
+}
+
+const SessionsList = ({selectedDate, onDatesLoaded}: Props) => {
   const [sessions, setSessions] = useState<DisplaySession[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -69,6 +75,13 @@ const SessionsList = () => {
       initializeDataMobile();
     }
   }, []);
+
+  const getUniqueDates = (sessions: DisplaySession[]): string[] => {
+    const dates = sessions
+      .filter((s) => s.startTime !== null)
+      .map((s) => format(parseISO(s.startTime!), "yyyy-MM-dd"));
+    return [...new Set(dates)].sort();
+  };
 
   const sortSessionsByStartTime = (sessions: DisplaySession[]): DisplaySession[] => {
     return [...sessions].sort((a, b) => {
@@ -130,7 +143,9 @@ const SessionsList = () => {
       );
 
       console.log("Transformed sessions:", displaySessions);
-      setSessions(sortSessionsByStartTime(displaySessions));
+      const sorted = sortSessionsByStartTime(displaySessions);
+      setSessions(sorted);
+      onDatesLoaded(getUniqueDates(sorted));
       setError(null);
     } catch (err) {
       console.error("Web fetch error:", err);
@@ -187,7 +202,9 @@ const SessionsList = () => {
         venueAssigned: session.venueAssigned || null,
       }));
 
-      setSessions(sortSessionsByStartTime(displaySessions));
+      const sorted = sortSessionsByStartTime(displaySessions);
+      setSessions(sorted);
+      onDatesLoaded(getUniqueDates(sorted));
     } catch (err) {
       console.error("Error loading from DB:", err);
       throw err;
@@ -307,13 +324,20 @@ const SessionsList = () => {
     );
   }
 
+  const filteredSessions = selectedDate
+    ? sessions.filter(
+      (s) =>
+        s.startTime &&
+      format(parseISO(s.startTime), "yyyy-MM-dd") === selectedDate
+    )
+  : sessions;
+
   return (
     <View style={styles.container}>
-      {sessions.length === 0 ? (
+      {filteredSessions.length === 0 ? (
         <Text>No sessions found</Text>
       ) : (
-        sessions
-          .slice(0, 50)
+        filteredSessions
           .map((session) => (
             <SessionItem
               key={session.id}

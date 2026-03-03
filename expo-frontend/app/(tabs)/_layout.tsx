@@ -19,8 +19,15 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: 'Day by Day',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="allEvents"
+        options={{
+          title: 'All Events',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />
         }}
       />
       <Tabs.Screen
