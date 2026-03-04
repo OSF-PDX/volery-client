@@ -57,8 +57,8 @@ const SessionsList = () => {
     Platform.OS === "android"
       ? "http://10.0.2.2:3000/sessions"
       : Platform.OS === "web"
-        ? "http://localhost:3000/sessions"
-        : "http://localhost:3000/sessions";
+        ? "http://volery.nten.org:3001/sessions"
+        : "http://volery.nten.org:3001/sessions";
 
   const isWeb = Platform.OS === "web";
 
