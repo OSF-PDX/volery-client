@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { parseISO, format } from "date-fns";
+import striptags from "striptags";
 
 interface SessionItemProps {
   name: string;
@@ -41,7 +42,7 @@ const SessionItem = ({
     <View style={styles.sessionItem}>
       <Text style={styles.sessionName}>{name}</Text>
       <Text style={styles.sessionDescription} numberOfLines={50}>
-        {description}
+        {striptags(description, ['\n'])}
       </Text>
       <View style={styles.sessionTimeAndLocation}>
         <View style={styles.sessionTimeBox}>
