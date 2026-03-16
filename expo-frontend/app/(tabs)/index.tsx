@@ -1,27 +1,27 @@
-import { useState } from "react";
 import { StyleSheet } from "react-native";
+import { useState, useEffect } from "react";
 import SessionsList from "@/components/SessionsList";
 import ParallaxScrollView from "@/components/parallax-scroll-view";
 import { ThemedView } from "@/components/themed-view";
+import { useSessions } from "@/contexts/SessionsContext";
 
 export default function HomeScreen() {
-  const [availableDates, setAvailableDates] = useState<string[]>([]);
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const { availableDates } = useSessions();
+  const [ selectedDate, setSelectedDate ] = useState<string | null>(null);
 
-  const handleDatesLoaded = (dates: string[]) => {
-    setAvailableDates(dates);
-    if (dates.length > 0 && selectedDate === null) {
-      setSelectedDate(dates[0]);
+  useEffect(() => {
+    if (availableDates.length > 0 && selectedDate === null) {
+      setSelectedDate(availableDates[0]);
     }
-  };
+  }, [availableDates]);
+
+  const currentIndex = availableDates.indexOf(selectedDate ?? "");
 
   const handlePreviousDay = () => {
-    const currentIndex = availableDates.indexOf(selectedDate!);
     if (currentIndex > 0) setSelectedDate(availableDates[currentIndex - 1]);
   };
 
   const handleNextDay = () => {
-    const currentIndex = availableDates.indexOf(selectedDate!);
     if (currentIndex < availableDates.length - 1)
       setSelectedDate(availableDates[currentIndex + 1]);
   };
@@ -35,18 +35,12 @@ export default function HomeScreen() {
       onNextDay={handleNextDay}
     >
       <ThemedView style={styles.stepContainer}>
-        <SessionsList
-          selectedDate={selectedDate}
-          onDatesLoaded={handleDatesLoaded}
-        />
+        <SessionsList selectedDate={selectedDate} />
       </ThemedView>
     </ParallaxScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
+  stepContainer: { gap: 8, marginBottom: 8},
 });

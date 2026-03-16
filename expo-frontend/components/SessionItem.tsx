@@ -40,7 +40,7 @@ const SessionItem = ({
   return (
     <View style={styles.sessionItem}>
       <Text style={styles.sessionName}>{name}</Text>
-      <Text style={styles.sessionDescription} numberOfLines={3}>
+      <Text style={styles.sessionDescription} numberOfLines={50}>
         {description}
       </Text>
       <View style={styles.sessionTimeAndLocation}>
