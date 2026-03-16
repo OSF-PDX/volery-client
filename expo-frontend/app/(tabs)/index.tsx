@@ -1,42 +1,46 @@
-import { Image } from "expo-image";
 import { StyleSheet } from "react-native";
-
+import { useState, useEffect } from "react";
 import SessionsList from "@/components/SessionsList";
 import ParallaxScrollView from "@/components/parallax-scroll-view";
 import { ThemedView } from "@/components/themed-view";
+import { useSessions } from "@/contexts/SessionsContext";
 
 export default function HomeScreen() {
+  const { availableDates } = useSessions();
+  const [ selectedDate, setSelectedDate ] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (availableDates.length > 0 && selectedDate === null) {
+      setSelectedDate(availableDates[0]);
+    }
+  }, [availableDates]);
+
+  const currentIndex = availableDates.indexOf(selectedDate ?? "");
+
+  const handlePreviousDay = () => {
+    if (currentIndex > 0) setSelectedDate(availableDates[currentIndex - 1]);
+  };
+
+  const handleNextDay = () => {
+    if (currentIndex < availableDates.length - 1)
+      setSelectedDate(availableDates[currentIndex + 1]);
+  };
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#ffffff" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/26NTCLogo.webp")}
-          style={styles.voleryLogo}
-        />
-      }
+      selectedDate={selectedDate}
+      availableDates={availableDates}
+      onPreviousDay={handlePreviousDay}
+      onNextDay={handleNextDay}
     >
       <ThemedView style={styles.stepContainer}>
-        {/* <ThemedText><SessionsList /></ThemedText> */}
-        <SessionsList />
+        <SessionsList selectedDate={selectedDate} />
       </ThemedView>
     </ParallaxScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  voleryLogo: {
-    height: 100,
-    width: 225,
-    bottom: 0,
-  },
+  stepContainer: { gap: 8, marginBottom: 8},
 });
